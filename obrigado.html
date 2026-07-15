@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Obrigado! — EvaCloudd</title>
+  <meta name="description" content="Recebemos seu contato. Em breve um especialista da EvaCloudd falará com você." />
+  <meta name="robots" content="noindex" />
+  <meta name="theme-color" content="#4f46e5" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+
+  <!-- =====================================================
+       CONVERSÃO — dispare aqui o evento de conversão dos anúncios.
+       Esta página só é acessada APÓS o envio do formulário,
+       por isso é o lugar ideal para contabilizar o lead.
+       ===================================================== -->
+  <!-- Google Ads:
+  <script>gtag('event','conversion',{'send_to':'AW-XXXXXXX/YYYYYYYY'});</script>
+  -->
+  <!-- Meta Pixel:
+  <script>fbq('track','Lead');</script>
+  -->
+  <script>
+    // dispara o evento genérico (GTM/dataLayer) ao carregar a página de obrigado
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({ event: "lead_confirmed" });
+  </script>
+</head>
+<body>
+  <header class="nav">
+    <div class="container">
+      <a href="index.html" class="logo"><span class="logo-mark">☁</span><span><b>Eva</b><span>Cloudd</span></span></a>
+      <div class="nav-actions">
+        <button class="theme-toggle" data-theme-toggle aria-label="Alternar tema"><span data-theme-icon>🌙</span></button>
+        <a href="index.html" class="btn btn-ghost">Voltar ao início</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="section" style="min-height:70vh;display:grid;place-items:center;text-align:center">
+    <div class="container" style="max-width:640px">
+      <div class="reveal in" style="width:96px;height:96px;border-radius:50%;background:var(--wa);display:grid;place-items:center;font-size:48px;margin:0 auto 24px;box-shadow:0 16px 40px rgba(37,211,102,.4)">✓</div>
+      <span class="eyebrow">Recebido com sucesso</span>
+      <h1 class="section-title">Obrigado! 🎉</h1>
+      <p class="section-sub">Seu contato foi enviado e já abrimos o WhatsApp para você. Se a conversa não abriu automaticamente, use o botão abaixo. Um especialista responderá em breve!</p>
+      <div class="hero-cta" style="justify-content:center;margin-top:30px">
+        <a data-wa="obrigado" data-wa-msg="Olá! Acabei de preencher o formulário no site da EvaCloudd." class="btn btn-wa btn-lg">🟢 Abrir WhatsApp</a>
+        <a href="index.html" class="btn btn-ghost btn-lg">Voltar ao início</a>
+      </div>
+      <p class="form-note" style="margin-top:26px">Enquanto isso, conheça as <a href="index.html#solucoes" style="color:var(--brand-600);font-weight:700">nossas soluções</a>.</p>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container footer-bottom"><span>© <span data-year>2026</span> EvaCloudd — CNPJ 53.778.298/0001-21. Todos os direitos reservados.</span></div>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
