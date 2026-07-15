@@ -53,7 +53,15 @@
       "Bash(node voz_chamadas.js)",
       "Bash(SCAN=\"/c/Users/Murilo/AppData/Local/Temp/claude/c--Users-Murilo-OneDrive-Desktop-Site-eva/05442bb7-c44f-4021-b920-53d24e58a7f6/scratchpad/scan\"; SITE=\"/c/Users/Murilo/OneDrive/Desktop/Site eva\"; cp \"$SCAN/shots_voz/voz_chamadas_hist_top.png\" \"$SITE/assets/img/clouddvoz-historico.png\"; echo \"copiado\"; ls \"$SITE/assets/img/\" | grep -E \"supervisao|historico\")",
       "Bash(rm -f sup_done.txt online_done.txt)",
-      "Bash(node voz_online.js)"
+      "Bash(node voz_online.js)",
+      "Bash(SCAN=\"/c/Users/Murilo/AppData/Local/Temp/claude/c--Users-Murilo-OneDrive-Desktop-Site-eva/05442bb7-c44f-4021-b920-53d24e58a7f6/scratchpad/scan\"; SITE=\"/c/Users/Murilo/OneDrive/Desktop/Site eva\"; cp \"$SCAN/shots_voz/voz_chamadas_online.png\" \"$SITE/assets/img/clouddvoz-chamadas.png\"; echo \"chamadas online \\(ficticio\\) atualizado no site\")",
+      "Bash(find '/c/Users/Murilo/OneDrive/Desktop/Site eva' -type f '\\(' -iname *.png -o -iname *.jpg -o -iname *.jpeg -o -iname *.svg -o -iname *.webp -o -iname *.ico '\\)' -not -path */.claude/*)",
+      "Bash(PAGE=\"file:///C:/Users/Murilo/OneDrive/Desktop/Site%20eva/index.html\" node verify.js)",
+      "Bash(PAGE=\"file:///C:/Users/Murilo/OneDrive/Desktop/Site%20eva/integracoes.html\" node verify.js)",
+      "Bash(mv verify/chat_desktop_full.png verify/int_v2.png)",
+      "Bash(PAGE=\"file:///C:/Users/Murilo/OneDrive/Desktop/Site%20eva/contato.html\" node verify.js)",
+      "Bash(mv verify/chat_desktop_full.png verify/contato_new.png)",
+      "Bash(node shot_svg.js)"
     ],
     "additionalDirectories": [
       "C:\\Users\\Murilo\\AppData\\Local\\Temp\\claude\\c--Users-Murilo-OneDrive-Desktop-Site-eva\\05442bb7-c44f-4021-b920-53d24e58a7f6\\scratchpad\\scan\\shots_site",

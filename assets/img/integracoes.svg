@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 820" width="900" height="820" role="img" aria-label="Diagrama de integração EvaCloudd conectando sistemas">
+  <defs>
+    <linearGradient id="hub" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1257c0"/>
+      <stop offset="1" stop-color="#16a6e6"/>
+    </linearGradient>
+    <linearGradient id="line" x1="120" y1="110" x2="780" y2="650" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#1568c9"/>
+      <stop offset="1" stop-color="#35b6ef"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#16a6e6" stop-opacity=".28"/>
+      <stop offset="1" stop-color="#16a6e6" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="soft" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="10" stdDeviation="14" flood-color="#1568c9" flood-opacity="0.28"/>
+    </filter>
+    <style>
+      .lbl { font-family:Inter, Arial, sans-serif; font-size:19px; font-weight:700; fill:#3a5170; text-anchor:middle; }
+      .ico { font-size:46px; text-anchor:middle; dominant-baseline:central; }
+      .base { stroke:#bcd6f5; stroke-width:2.4; fill:none; stroke-linecap:round; opacity:.55; }
+      .flow { stroke:url(#line); stroke-width:3.6; fill:none; stroke-linecap:round; stroke-dasharray:7 15; animation:flow 1.8s linear infinite; }
+      @keyframes flow { to { stroke-dashoffset:-44; } }
+      .spark { fill:#16a6e6; }
+      .pulse { animation:pulse 3s ease-in-out infinite; transform-origin:450px 380px; }
+      @keyframes pulse { 0%,100%{ transform:scale(1);} 50%{ transform:scale(1.05);} }
+      .node { fill:#ffffff; stroke:#dbe6fb; stroke-width:2; filter:url(#soft); }
+      .float { animation:fl 5s ease-in-out infinite; }
+      @keyframes fl { 0%,100%{ transform:translateY(0);} 50%{ transform:translateY(-7px);} }
+      .dot { fill:#35b6ef; animation:fl 5s ease-in-out infinite; }
+    </style>
+  </defs>
+
+  <!-- brilho de fundo -->
+  <circle cx="450" cy="380" r="360" fill="url(#glow)"/>
+
+  <!-- ===== CONEXÕES (6 raios) — linha-base sempre visível ===== -->
+  <g>
+    <line class="base" x1="450" y1="380" x2="450" y2="110"/>
+    <line class="base" x1="450" y1="380" x2="722" y2="190"/>
+    <line class="base" x1="450" y1="380" x2="722" y2="570"/>
+    <line class="base" x1="450" y1="380" x2="450" y2="650"/>
+    <line class="base" x1="450" y1="380" x2="178" y2="570"/>
+    <line class="base" x1="450" y1="380" x2="178" y2="190"/>
+  </g>
+  <!-- fluxo animado por cima -->
+  <g>
+    <line class="flow" x1="450" y1="380" x2="450" y2="110"/>
+    <line class="flow" x1="450" y1="380" x2="722" y2="190" style="animation-delay:.3s"/>
+    <line class="flow" x1="450" y1="380" x2="722" y2="570" style="animation-delay:.6s"/>
+    <line class="flow" x1="450" y1="380" x2="450" y2="650" style="animation-delay:.9s"/>
+    <line class="flow" x1="450" y1="380" x2="178" y2="570" style="animation-delay:1.2s"/>
+    <line class="flow" x1="450" y1="380" x2="178" y2="190" style="animation-delay:1.5s"/>
+  </g>
+  <!-- pontos de energia viajando do hub até cada ícone -->
+  <g>
+    <circle class="spark" r="5"><animateMotion dur="2.2s" repeatCount="indefinite" path="M450,380 L450,110"/></circle>
+    <circle class="spark" r="5"><animateMotion dur="2.2s" begin="0.37s" repeatCount="indefinite" path="M450,380 L722,190"/></circle>
+    <circle class="spark" r="5"><animateMotion dur="2.2s" begin="0.73s" repeatCount="indefinite" path="M450,380 L722,570"/></circle>
+    <circle class="spark" r="5"><animateMotion dur="2.2s" begin="1.1s" repeatCount="indefinite" path="M450,380 L450,650"/></circle>
+    <circle class="spark" r="5"><animateMotion dur="2.2s" begin="1.47s" repeatCount="indefinite" path="M450,380 L178,570"/></circle>
+    <circle class="spark" r="5"><animateMotion dur="2.2s" begin="1.83s" repeatCount="indefinite" path="M450,380 L178,190"/></circle>
+  </g>
+
+  <!-- pontinhos decorativos -->
+  <circle class="dot" cx="120" cy="360" r="6"/>
+  <circle class="dot" cx="790" cy="330" r="6" style="animation-delay:1s"/>
+  <circle class="dot" cx="470" cy="742" r="5" style="animation-delay:.5s"/>
+
+  <!-- HUB central -->
+  <g class="pulse">
+    <circle cx="450" cy="380" r="96" fill="url(#hub)" filter="url(#soft)"/>
+    <text x="450" y="366" class="ico" style="font-size:60px">☁</text>
+    <text x="450" y="424" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="800" fill="#ffffff">EvaCloudd</text>
+  </g>
+
+  <!-- ===== NÓS (sistemas) ===== -->
+  <g class="float">
+    <circle class="node" cx="450" cy="110" r="56"/><text x="450" y="110" class="ico">📞</text><text x="450" y="42" class="lbl">Telefonia</text>
+  </g>
+  <g class="float" style="animation-delay:.4s">
+    <circle class="node" cx="722" cy="190" r="56"/><text x="722" y="190" class="ico">💬</text><text x="722" y="270" class="lbl">WhatsApp</text>
+  </g>
+  <g class="float" style="animation-delay:.8s">
+    <circle class="node" cx="722" cy="570" r="56"/><text x="722" y="570" class="ico">🛒</text><text x="722" y="650" class="lbl">E-commerce</text>
+  </g>
+  <g class="float" style="animation-delay:1.2s">
+    <circle class="node" cx="450" cy="650" r="56"/><text x="450" y="650" class="ico">💳</text><text x="450" y="730" class="lbl">Pagamentos</text>
+  </g>
+  <g class="float" style="animation-delay:.6s">
+    <circle class="node" cx="178" cy="570" r="56"/><text x="178" y="570" class="ico">🗂️</text><text x="178" y="650" class="lbl">ERP / CRM</text>
+  </g>
+  <g class="float" style="animation-delay:1s">
+    <circle class="node" cx="178" cy="190" r="56"/><text x="178" y="190" class="ico">⚙️</text><text x="178" y="270" class="lbl">API / Webhook</text>
+  </g>
+</svg>
