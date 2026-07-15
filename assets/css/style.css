@@ -178,6 +178,9 @@ h1, h2, h3, h4 { line-height: 1.15; font-weight: 800; letter-spacing: -.02em; }
 .mobile-menu a { padding: 14px 12px; border-radius: 12px; font-weight: 600; color: var(--text-soft); }
 .mobile-menu a:hover { background: var(--bg-alt); color: var(--brand-600); }
 .mobile-menu .btn { margin-top: 10px; }
+.mobile-menu a.btn-primary, .mobile-menu a.btn-wa { color: #fff; }
+.mobile-menu a.btn-primary:hover, .mobile-menu a.btn-wa:hover { color: #fff; background: var(--grad); }
+.mobile-menu a.btn-wa:hover { background: var(--wa-dark); }
 
 /* ---------- Hero ---------- */
 .hero { position: relative; padding: clamp(48px, 8vw, 96px) 0 clamp(56px, 8vw, 100px); overflow: hidden; }
