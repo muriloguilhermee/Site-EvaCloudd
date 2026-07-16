@@ -41,24 +41,18 @@
 }
 
 :root[data-theme="dark"] {
-  --bg: #05070e;
-  --bg-alt: #090d18;
-  --surface: #0e1425;
-  --border: #1c2740;
-  --text: #f2f6ff;
-  --text-soft: #aeb9d6;
-  --text-mute: #7d89ac;
-  --brand-600: #3d8bff;
-  --brand-500: #4f97ff;
-  --brand-400: #7db2ff;
-  --accent-500: #22c3f0;
-  --accent-400: #4bd4f7;
-  --grad: linear-gradient(135deg, #2f74ff 0%, #22c3f0 100%);
-  --grad-soft: linear-gradient(135deg, rgba(47,116,255,.16), rgba(34,195,240,.12));
-  --shadow-sm: 0 1px 2px rgba(0,0,0,.5);
-  --shadow-md: 0 12px 34px rgba(0,0,0,.5);
-  --shadow-lg: 0 30px 70px rgba(0,0,0,.65);
-  --shadow-brand: 0 20px 60px rgba(34,120,240,.4);
+  --bg: #0b1020;
+  --bg-alt: #0f162b;
+  --surface: #121a30;
+  --border: #23304f;
+  --text: #eef2ff;
+  --text-soft: #c2cbe6;
+  --text-mute: #94a3c4;
+  --grad-soft: linear-gradient(135deg, rgba(99,102,241,.18), rgba(34,211,238,.14));
+  --shadow-sm: 0 1px 2px rgba(0,0,0,.4);
+  --shadow-md: 0 10px 30px rgba(0,0,0,.4);
+  --shadow-lg: 0 24px 60px rgba(0,0,0,.55);
+  --shadow-brand: 0 16px 40px rgba(6,182,212,.25);
 }
 
 /* ---------- Reset / base ---------- */
@@ -141,9 +135,6 @@ h1, h2, h3, h4 { line-height: 1.15; font-weight: 800; letter-spacing: -.02em; }
 /* imagem que se funde ao fundo (bordas esfumaçadas, sem cartão) */
 .hero-img--blend {
   filter: none;
-  animation: none;                 /* sem flutuação: máscara + animação contínua travava */
-  transform: translateZ(0);        /* camada própria na GPU */
-  backface-visibility: hidden;
   -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 9%, #000 91%, transparent 100%), linear-gradient(0deg, transparent 0, #000 9%, #000 91%, transparent 100%);
   -webkit-mask-composite: source-in;
           mask-image: linear-gradient(90deg, transparent 0, #000 9%, #000 91%, transparent 100%), linear-gradient(0deg, transparent 0, #000 9%, #000 91%, transparent 100%);
@@ -185,24 +176,16 @@ h1, h2, h3, h4 { line-height: 1.15; font-weight: 800; letter-spacing: -.02em; }
 .nav.open .hamburger span::before { transform: rotate(45deg); }
 .nav.open .hamburger span::after { transform: rotate(-45deg) translateY(-1px); }
 
-/* Menu overlay full-screen (estilo cinematográfico) */
 .mobile-menu {
-  position: fixed; inset: 0; z-index: 99;
-  background: var(--bg);
-  padding: calc(var(--nav-h) + 24px) 28px 40px; display: flex; flex-direction: column; justify-content: center; gap: 2px;
-  transform: translateY(-100%); transition: transform .55s var(--ease); overflow-y: auto;
+  position: fixed; inset: var(--nav-h) 0 auto 0; z-index: 99;
+  background: var(--surface); border-bottom: 1px solid var(--border);
+  padding: 16px 20px 26px; display: flex; flex-direction: column; gap: 6px;
+  transform: translateY(-120%); transition: transform .35s var(--ease); box-shadow: var(--shadow-lg);
 }
-.mobile-menu::before { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
-  background: radial-gradient(60% 50% at 85% 10%, rgba(34,120,240,.16), transparent 60%), radial-gradient(50% 40% at 5% 90%, rgba(34,195,240,.12), transparent 60%); }
 .nav.open + .mobile-menu, .mobile-menu.show { transform: translateY(0); }
-.mobile-menu a { font-size: clamp(2rem, 9vw, 3.4rem); font-weight: 800; letter-spacing: -.02em; line-height: 1.25; color: var(--text); padding: 4px 0; border-radius: 0;
-  opacity: 0; transform: translateY(22px); transition: opacity .5s var(--ease), transform .5s var(--ease), color .2s; }
-.mobile-menu.show a { opacity: 1; transform: none; }
-.mobile-menu.show a:nth-child(1){ transition-delay:.10s } .mobile-menu.show a:nth-child(2){ transition-delay:.16s }
-.mobile-menu.show a:nth-child(3){ transition-delay:.22s } .mobile-menu.show a:nth-child(4){ transition-delay:.28s }
-.mobile-menu.show a:nth-child(5){ transition-delay:.34s } .mobile-menu.show a:nth-child(6){ transition-delay:.40s }
-.mobile-menu a:hover { color: var(--accent-400); background: none; }
-.mobile-menu .btn { margin-top: 26px; font-size: 1.02rem; align-self: flex-start; }
+.mobile-menu a { padding: 14px 12px; border-radius: 12px; font-weight: 600; color: var(--text-soft); }
+.mobile-menu a:hover { background: var(--bg-alt); color: var(--brand-600); }
+.mobile-menu .btn { margin-top: 10px; }
 .mobile-menu a.btn-primary, .mobile-menu a.btn-wa { color: #fff; }
 .mobile-menu a.btn-primary:hover, .mobile-menu a.btn-wa:hover { color: #fff; background: var(--grad); }
 .mobile-menu a.btn-wa:hover { background: var(--wa-dark); }
@@ -532,109 +515,3 @@ h1, h2, h3, h4 { line-height: 1.15; font-weight: 800; letter-spacing: -.02em; }
   .hero-lead-grid { grid-template-columns: 1.1fr .9fr; }
 }
 .hero-lead-grid { display: grid; gap: 40px; grid-template-columns: 1fr; align-items: center; }
-
-/* =========================================================
-   TEMA CINEMATOGRÁFICO (v3) — estilo dark inspirado em agências
-   ========================================================= */
-:root[data-theme="dark"] body { background: var(--bg); }
-/* brilho ambiente em camada FIXA (sem repintar no scroll = suave) */
-:root[data-theme="dark"] body::before {
-  content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
-  background:
-    radial-gradient(55% 45% at 82% -8%, rgba(34,120,240,.14), transparent 60%),
-    radial-gradient(45% 40% at 3% 12%, rgba(34,195,240,.10), transparent 60%);
-}
-/* tipografia maior e mais dramática */
-.hero h1 { font-size: clamp(2.6rem, 7vw, 5rem); letter-spacing: -.03em; line-height: 1.03; }
-.section-title { font-size: clamp(2rem, 5.2vw, 3.7rem); letter-spacing: -.03em; }
-.page-hero h1 { font-size: clamp(2.4rem, 6.5vw, 4.4rem); letter-spacing: -.03em; line-height: 1.05; }
-.hero p.lead { font-size: 1.22rem; }
-
-/* nav em vidro escuro */
-:root[data-theme="dark"] .nav { background: color-mix(in srgb, var(--bg) 68%, transparent); }
-:root[data-theme="dark"] .nav.scrolled { background: color-mix(in srgb, var(--bg) 86%, transparent); border-color: var(--border); }
-:root[data-theme="dark"] .nav-links a { color: var(--text-soft); }
-:root[data-theme="dark"] .nav-links a:hover, :root[data-theme="dark"] .nav-links a.active { color: #fff; background: rgba(47,116,255,.12); }
-
-/* eyebrow com brilho */
-:root[data-theme="dark"] .eyebrow { background: rgba(47,116,255,.12); color: var(--accent-400); border: 1px solid rgba(47,116,255,.28); }
-
-/* text gradient mais brilhante */
-:root[data-theme="dark"] .text-grad { background: linear-gradient(100deg, #6aa8ff, #22c3f0); -webkit-background-clip: text; background-clip: text; color: transparent; }
-
-/* botões */
-:root[data-theme="dark"] .btn-ghost { border-color: rgba(255,255,255,.18); color: var(--text); }
-:root[data-theme="dark"] .btn-ghost:hover { border-color: var(--accent-400); color: var(--accent-400); background: rgba(47,116,255,.08); }
-
-/* cards e superfícies com leve brilho superior + glow no hover */
-:root[data-theme="dark"] .card { background: linear-gradient(180deg, rgba(255,255,255,.035), transparent 40%), var(--surface); }
-:root[data-theme="dark"] .card:hover { box-shadow: 0 30px 70px rgba(0,0,0,.6), 0 0 0 1px rgba(47,116,255,.35); }
-:root[data-theme="dark"] .theme-toggle, :root[data-theme="dark"] .hamburger { border-color: var(--border); }
-:root[data-theme="dark"] .field input, :root[data-theme="dark"] .field select, :root[data-theme="dark"] .field textarea { background: #0a1020; }
-
-/* faixa de logos mais discreta */
-:root[data-theme="dark"] .logos-row span { color: var(--text-mute); }
-
-/* ---------- Marquee (texto correndo) ---------- */
-.marquee { overflow: hidden; border-block: 1px solid var(--border); background: var(--bg-alt); padding: 24px 0; }
-.marquee__track { display: flex; width: max-content; animation: marq 30s linear infinite; }
-.marquee__track > span { display: inline-flex; align-items: center; gap: 54px; padding-right: 54px; white-space: nowrap;
-  font-size: clamp(1.1rem, 2.6vw, 1.9rem); font-weight: 800; letter-spacing: -.01em; color: var(--text-soft); }
-.marquee__track b { color: transparent; background: linear-gradient(100deg, #6aa8ff, #22c3f0); -webkit-background-clip: text; background-clip: text; }
-.marquee__track .sep { color: var(--accent-500); font-weight: 900; }
-@keyframes marq { to { transform: translateX(-50%); } }
-
-/* ---------- Wordmark gigante ---------- */
-.bigmark { overflow: hidden; text-align: center; padding: 20px 0 0; line-height: .82; }
-.bigmark span { display: block; font-size: clamp(3.4rem, 20vw, 17rem); font-weight: 900; letter-spacing: -.05em;
-  background: linear-gradient(180deg, rgba(125,178,255,.20), rgba(125,178,255,.02)); -webkit-background-clip: text; background-clip: text; color: transparent; }
-
-/* imagens de destaque mais integradas no dark */
-:root[data-theme="dark"] .feat-img { filter: drop-shadow(0 30px 60px rgba(0,0,0,.55)); }
-
-@media (prefers-reduced-motion: reduce) { .marquee__track { animation: none; } }
-
-/* =========================================================
-   EFEITOS DE NAVEGAÇÃO / SCROLL (estilo cinematográfico)
-   ========================================================= */
-html { scroll-behavior: smooth; }
-
-/* cursor com brilho azul (segue o mouse) */
-.cursor-glow { position: fixed; top: 0; left: 0; width: 26px; height: 26px; border-radius: 50%; pointer-events: none; z-index: 9999;
-  background: radial-gradient(circle, rgba(90,162,255,.55), rgba(34,195,240,0) 70%); mix-blend-mode: screen;
-  transform: translate(-50%,-50%); transition: width .25s var(--ease), height .25s var(--ease), opacity .3s; opacity: 0; }
-.cursor-glow.on { opacity: 1; }
-.cursor-glow.big { width: 90px; height: 90px; }
-
-/* navbar some ao descer, aparece ao subir */
-.nav { transition: transform .45s var(--ease), background .3s, border-color .3s, box-shadow .3s; }
-.nav.hide { transform: translateY(-115%); }
-
-/* hero em tela cheia */
-.hero-cine { min-height: 100svh; display: flex; align-items: center; position: relative; }
-.scrolldown { position: absolute; left: 50%; bottom: 24px; transform: translateX(-50%); color: var(--text-mute);
-  font-size: .72rem; letter-spacing: .22em; text-transform: uppercase; display: flex; flex-direction: column; align-items: center; gap: 10px; }
-.scrolldown i { width: 1px; height: 42px; background: linear-gradient(var(--accent-500), transparent); animation: scrolldash 1.9s ease-in-out infinite; display: block; }
-@keyframes scrolldash { 0%{transform:scaleY(0);transform-origin:top} 45%{transform:scaleY(1);transform-origin:top} 55%{transform:scaleY(1);transform-origin:bottom} 100%{transform:scaleY(0);transform-origin:bottom} }
-
-/* revelação em "wipe" para imagens/mídia */
-.reveal-img { clip-path: inset(0 0 100% 0); opacity: .15; transition: clip-path 1.05s var(--ease), opacity .9s var(--ease); }
-.reveal-img.in { clip-path: inset(0 0 0 0); opacity: 1; }
-
-/* upgrade da revelação padrão: leve escala + blur saindo */
-.reveal { opacity: 0; transform: translateY(28px); transition: opacity .7s var(--ease), transform .8s var(--ease); }
-.reveal.in { opacity: 1; transform: none; }
-.reveal, .reveal-img, [data-parallax], .hero-img { will-change: transform; }
-.reveal.in { opacity: 1; transform: none; filter: none; }
-
-/* seção-declaração que "gruda" (pin) enquanto rola */
-.pin-wrap { position: relative; }
-.statement { min-height: 100vh; display: grid; place-items: center; text-align: center; position: -webkit-sticky; position: sticky; top: 0; padding: 80px 0; }
-.statement h2 { font-size: clamp(2.1rem, 6.5vw, 5.2rem); max-width: 1120px; letter-spacing: -.03em; line-height: 1.04; }
-.statement .muted { color: var(--text-mute); }
-
-@media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  .reveal, .reveal-img { opacity: 1 !important; transform: none !important; filter: none !important; clip-path: none !important; }
-  .scrolldown i { animation: none; }
-}

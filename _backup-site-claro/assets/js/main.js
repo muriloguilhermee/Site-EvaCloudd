@@ -45,8 +45,8 @@
   /* ---- Tema (dark/light) com persistência ---- */
   var root = document.documentElement;
   var saved = localStorage.getItem("eva-theme");
-  // modo claro é o padrão; o visitante pode alternar para o escuro
-  root.setAttribute("data-theme", saved || "light");
+  var prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+  root.setAttribute("data-theme", saved || (prefersDark ? "dark" : "light"));
   function updateThemeIcon() {
     var dark = root.getAttribute("data-theme") === "dark";
     document.querySelectorAll("[data-theme-icon]").forEach(function (i) { i.textContent = dark ? "☀️" : "🌙"; });
@@ -172,68 +172,4 @@
   /* ---- Ano no footer ---- */
   document.querySelectorAll("[data-year]").forEach(function (el) { el.textContent = new Date().getFullYear(); });
 
-})();
-
-/* ===== Efeitos cinematográficos (cursor, nav auto-hide, parallax, wipe) ===== */
-(function () {
-  "use strict";
-  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-  // cursor com brilho (só em dispositivos com mouse)
-  if (window.matchMedia && window.matchMedia("(hover: hover)").matches) {
-    var cg = document.createElement("div");
-    cg.className = "cursor-glow";
-    document.body.appendChild(cg);
-    var cx = 0, cy = 0, tx = 0, ty = 0, shown = false;
-    document.addEventListener("mousemove", function (e) {
-      tx = e.clientX; ty = e.clientY;
-      if (!shown) { cg.classList.add("on"); shown = true; }
-    });
-    (function loop() { cx += (tx - cx) * 0.18; cy += (ty - cy) * 0.18; cg.style.left = cx + "px"; cg.style.top = cy + "px"; requestAnimationFrame(loop); })();
-    document.querySelectorAll("a, button, .card, .btn").forEach(function (el) {
-      el.addEventListener("mouseenter", function () { cg.classList.add("big"); });
-      el.addEventListener("mouseleave", function () { cg.classList.remove("big"); });
-    });
-  }
-
-  // navbar some ao descer, aparece ao subir
-  var nav = document.querySelector(".nav");
-  if (nav) {
-    var last = 0;
-    window.addEventListener("scroll", function () {
-      var y = window.scrollY || 0;
-      if (y > last && y > 320) nav.classList.add("hide");
-      else nav.classList.remove("hide");
-      last = y;
-    }, { passive: true });
-  }
-
-  // parallax suave — só quando rola (leitura e escrita em lote, sem loop contínuo)
-  var isTouch = window.matchMedia && window.matchMedia("(hover: none)").matches;
-  if (!reduce && !isTouch) {
-    var px = [].slice.call(document.querySelectorAll("[data-parallax]"));
-    if (px.length) {
-      var ticking = false;
-      var update = function () {
-        var vh = window.innerHeight, centers = [], i;
-        for (i = 0; i < px.length; i++) { var r = px[i].getBoundingClientRect(); centers[i] = (r.top + r.height / 2) - vh / 2; } // read
-        for (i = 0; i < px.length; i++) { var sp = parseFloat(px[i].getAttribute("data-parallax")) || 0.06; px[i].style.transform = "translate3d(0," + (-centers[i] * sp).toFixed(1) + "px,0)"; } // write
-        ticking = false;
-      };
-      var onScroll = function () { if (!ticking) { ticking = true; requestAnimationFrame(update); } };
-      window.addEventListener("scroll", onScroll, { passive: true });
-      window.addEventListener("resize", onScroll);
-      update();
-    }
-  }
-
-  // revelação em "wipe" das mídias
-  if ("IntersectionObserver" in window) {
-    var io = new IntersectionObserver(function (es) {
-      es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } });
-    }, { threshold: 0.15 });
-    document.querySelectorAll(".reveal-img").forEach(function (el) { io.observe(el); });
-  } else {
-    document.querySelectorAll(".reveal-img").forEach(function (el) { el.classList.add("in"); });
-  }
 })();

@@ -16,7 +16,7 @@
       <feDropShadow dx="0" dy="10" stdDeviation="14" flood-color="#1568c9" flood-opacity="0.28"/>
     </filter>
     <style>
-      .lbl { font-family:Inter, Arial, sans-serif; font-size:19px; font-weight:700; fill:#3a5170; text-anchor:middle; }
+      .lbl { font-family:Inter, Arial, sans-serif; font-size:19px; font-weight:700; fill:#c3d0ee; text-anchor:middle; }
       .ico { font-size:46px; text-anchor:middle; dominant-baseline:central; }
       .base { stroke:#bcd6f5; stroke-width:2.4; fill:none; stroke-linecap:round; opacity:.55; }
       .flow { stroke:url(#line); stroke-width:3.6; fill:none; stroke-linecap:round; stroke-dasharray:7 15; animation:flow 1.8s linear infinite; }
