@@ -254,7 +254,7 @@ h1, h2, h3, h4 { line-height: 1.15; font-weight: 800; letter-spacing: -.02em; }
 /* ---------- Stats ---------- */
 .stats { display: grid; grid-template-columns: repeat(2,1fr); gap: 20px; }
 .stat { text-align: center; padding: 26px 18px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow-sm); }
-.stat .num { font-size: clamp(2rem, 5vw, 2.8rem); font-weight: 900; }
+.stat .num { font-size: clamp(2rem, 5vw, 2.8rem); font-weight: 900; display: flex; align-items: center; justify-content: center; min-height: 3.2rem; line-height: 1; }
 .stat .lbl { color: var(--text-mute); font-size: .92rem; margin-top: 4px; }
 
 /* ---------- Cards de produto ---------- */
@@ -670,4 +670,65 @@ html { scroll-behavior: smooth; }
 }
 @media (max-width: 480px) {
   .section { padding: 40px 0; }
+}
+
+/* ===== Carrossel de logos de clientes ===== */
+.clients { padding-bottom: 56px; }
+.logos-marquee {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+          mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+.logos-track {
+  display: flex;
+  align-items: center;
+  width: max-content;
+  gap: 20px;
+  animation: logos-scroll 55s linear infinite;
+  will-change: transform;
+}
+.logos-marquee:hover .logos-track { animation-play-state: paused; }
+.logo-item {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 210px;
+  height: 120px;
+  padding: 10px 22px;
+  overflow: hidden;
+  background: transparent;
+  border: 0;
+  border-radius: 14px;
+}
+.logo-item img {
+  display: block;
+  max-width: 186px;
+  max-height: 92px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  filter: grayscale(1);
+  opacity: .82;
+  transition: filter .3s ease, opacity .3s ease, transform .3s ease;
+}
+.logo-item:hover img { filter: grayscale(0); opacity: 1; transform: scale(1.05); }
+:root[data-theme="dark"] .logo-item {
+  background: #fff;
+  border-radius: 14px;
+}
+:root[data-theme="dark"] .logo-item img { filter: none; opacity: .95; }
+@keyframes logos-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .logos-track { animation: none; }
+}
+@media (max-width: 720px) {
+  .logo-item { width: 168px; height: 100px; padding: 8px 16px; }
+  .logo-item img { max-width: 148px; max-height: 76px; }
+  .logos-track { gap: 12px; animation-duration: 46s; }
 }
