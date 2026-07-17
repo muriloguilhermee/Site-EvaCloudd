@@ -649,3 +649,25 @@ html { scroll-behavior: smooth; }
 .legal a { color: var(--brand-600); font-weight: 600; }
 .legal a:hover { text-decoration: underline; }
 :root[data-theme="dark"] .legal a { color: var(--accent-400); }
+
+/* =========================================================
+   MOBILE — compactar espaçamentos (menos "vazão" entre blocos)
+   ========================================================= */
+@media (max-width: 720px) {
+  .section { padding: 46px 0; }
+  .hero-cine { min-height: auto; }
+  .hero { padding: 40px 0 44px; }
+  .hero-grid { gap: 26px; }
+  .scrolldown { display: none; }              /* hero deixa de ter altura fixa no mobile */
+  .pin-wrap { min-height: auto !important; }  /* remove o "gap" grande do manifesto */
+  .statement { min-height: auto; padding: 46px 0; position: static; }
+  .statement h2 { font-size: clamp(1.6rem, 7vw, 2.3rem); }
+  .showcase { margin-top: 30px !important; gap: 22px; }
+  .grid-2, .grid-3, .grid-4 { gap: 18px; }
+  .marquee { padding: 18px 0; }
+  .bigmark { padding-top: 6px; }
+  .stats { gap: 14px; }
+}
+@media (max-width: 480px) {
+  .section { padding: 40px 0; }
+}
