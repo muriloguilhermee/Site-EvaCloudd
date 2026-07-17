@@ -6,12 +6,54 @@
 (function () {
   "use strict";
 
-  /* ---- Configuração central (edite aqui) ---- */
+  /* ---- Configuração central (EDITE AQUI) ---- */
   const CONFIG = {
-    whatsapp: "551637064700",           // número em formato internacional (sem +, sem espaços)
+    whatsapp: "551637064700",           // número do WhatsApp (formato internacional, sem +). TROQUE pelo celular/WhatsApp real!
     defaultMsg: "Olá! Vim pelo site da EvaCloudd e quero saber mais sobre as soluções.",
+
+    // ---- Rastreamento (cole seus IDs; deixe vazio para desativar) ----
+    gtmId: "",           // ex.: "GTM-XXXXXXX"
+    metaPixelId: "",     // ex.: "123456789012345"
+    googleAdsId: "",     // ex.: "AW-1234567890"  (tag base do Google Ads)
+    adsConversion: "",   // ex.: "AW-1234567890/AbC-D_efG"  (rótulo de conversão de lead)
+
+    // ---- Backup de lead (além do WhatsApp) ----
+    // Cole a URL de um formulário Formspree (https://formspree.io) ou endpoint próprio.
+    // Se vazio, envia só pelo WhatsApp.
+    leadEndpoint: "",
   };
   window.EVA = CONFIG;
+  if (CONFIG.adsConversion) window.GADS_CONVERSION = CONFIG.adsConversion;
+
+  /* ---- Carrega tags de rastreamento (SÓ após consentimento de cookies) ---- */
+  var tagsLoaded = false;
+  function loadTags() {
+    if (tagsLoaded) return; tagsLoaded = true;
+    window.dataLayer = window.dataLayer || [];
+    // Google Tag Manager
+    if (CONFIG.gtmId) {
+      (function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+        var f = d.getElementsByTagName(s)[0], j = d.createElement(s); j.async = true;
+        j.src = "https://www.googletagmanager.com/gtm.js?id=" + i; f.parentNode.insertBefore(j, f);
+      })(window, document, "script", "dataLayer", CONFIG.gtmId);
+    }
+    // Google Ads / gtag
+    if (CONFIG.googleAdsId) {
+      var g = document.createElement("script"); g.async = true;
+      g.src = "https://www.googletagmanager.com/gtag/js?id=" + CONFIG.googleAdsId; document.head.appendChild(g);
+      window.gtag = window.gtag || function () { window.dataLayer.push(arguments); };
+      window.gtag("js", new Date()); window.gtag("config", CONFIG.googleAdsId);
+    }
+    // Meta Pixel
+    if (CONFIG.metaPixelId) {
+      !function (f, b, e, v, n, t, s) { if (f.fbq) return; n = f.fbq = function () { n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments); };
+        if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = "2.0"; n.queue = []; t = b.createElement(e); t.async = !0;
+        t.src = v; s = b.getElementsByTagName(e)[0]; s.parentNode.insertBefore(t, s);
+      }(window, document, "script", "https://connect.facebook.net/en_US/fbevents.js");
+      window.fbq("init", CONFIG.metaPixelId); window.fbq("track", "PageView");
+    }
+  }
+  window.EVA.loadTags = loadTags;
 
   /* ---- Helper de tracking (Google Ads / Meta Pixel / GTM) ---- */
   // Dispara eventos de conversão de forma segura, mesmo sem os scripts carregados.
@@ -144,7 +186,18 @@
 
       window.trackLead(form.getAttribute("data-lead-form") || "form", { segmento: seg });
 
-      // redireciona para obrigado (rastreio de conversão) e abre WhatsApp
+      // backup do lead: envia para o endpoint (Formspree/próprio), se configurado — não bloqueia o fluxo
+      if (CONFIG.leadEndpoint) {
+        try {
+          fetch(CONFIG.leadEndpoint, {
+            method: "POST",
+            headers: { "Content-Type": "application/json", "Accept": "application/json" },
+            body: JSON.stringify({ nome: nome, telefone: tel, segmento: seg, mensagem: msg, origem: form.getAttribute("data-lead-form") || "site", pagina: location.href })
+          }).catch(function () {});
+        } catch (e) { /* silencioso */ }
+      }
+
+      // abre WhatsApp e vai para a página de obrigado (rastreio de conversão)
       var wa = waLink(texto);
       var thanks = form.getAttribute("data-thanks");
       window.open(wa, "_blank", "noopener");
@@ -157,14 +210,18 @@
     if (ok) { ok.style.display = "block"; setTimeout(function () { ok.style.display = "none"; }, 6000); }
   }
 
-  /* ---- Cookie consent ---- */
+  /* ---- Cookie consent (LGPD): tags só carregam após "Aceitar" ---- */
   var cookie = document.querySelector(".cookie");
-  if (cookie && !localStorage.getItem("eva-cookie")) {
+  var cookieChoice = localStorage.getItem("eva-cookie");
+  if (cookieChoice === "accept") loadTags(); // já consentiu antes
+  if (cookie && !cookieChoice) {
     setTimeout(function () { cookie.classList.add("show"); }, 1200);
     cookie.querySelectorAll("[data-cookie]").forEach(function (b) {
       b.addEventListener("click", function () {
-        localStorage.setItem("eva-cookie", b.getAttribute("data-cookie"));
+        var choice = b.getAttribute("data-cookie");
+        localStorage.setItem("eva-cookie", choice);
         cookie.classList.remove("show");
+        if (choice === "accept") loadTags();
       });
     });
   }

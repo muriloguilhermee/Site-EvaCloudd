@@ -1,1 +1,7 @@
+# Pastas que NÃO devem ir para o servidor
+_backup-site-claro/
+prints-sistemas/
+EvaCloudd-Arquivos-Privados/
+node_modules/
+*.log
 .claude

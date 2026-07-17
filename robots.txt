@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /_backup-site-claro/
+Disallow: /prints-sistemas/
+Disallow: /EvaCloudd-Arquivos-Privados/
+
+Sitemap: https://evacloudd.com.br/sitemap.xml
