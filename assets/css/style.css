@@ -493,7 +493,12 @@ h1, h2, h3, h4 { line-height: 1.15; font-weight: 800; letter-spacing: -.02em; }
 .cookie { position: fixed; left: 20px; right: 20px; bottom: 20px; z-index: 95; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow-lg); padding: 18px 20px; display: flex; flex-direction: column; gap: 12px; max-width: 460px; transform: translateY(160%); transition: transform .4s var(--ease); }
 .cookie.show { transform: translateY(0); }
 .cookie p { font-size: .9rem; color: var(--text-soft); }
-.cookie .row { display: flex; gap: 10px; }
+.cookie p a { color: var(--brand-600); font-weight: 700; }
+:root[data-theme="dark"] .cookie p a { color: var(--accent-400); }
+.cookie .row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+.cookie-link { font-size: .85rem; font-weight: 600; color: var(--brand-600); text-decoration: underline; text-underline-offset: 3px; white-space: nowrap; }
+.cookie-link:hover { opacity: .8; }
+:root[data-theme="dark"] .cookie-link { color: var(--accent-400); }
 
 /* ---------- Page hero (subpáginas) ---------- */
 .page-hero { padding: clamp(96px, 14vh, 150px) 0 clamp(46px, 6vw, 68px); text-align: center; position: relative; }
@@ -528,8 +533,9 @@ h1, h2, h3, h4 { line-height: 1.15; font-weight: 800; letter-spacing: -.02em; }
   .stats { grid-template-columns: repeat(4, 1fr); }
   .footer-grid { grid-template-columns: 2fr 1fr 1fr 1.3fr; }
   .split { grid-template-columns: 1fr 1fr; }
-  .cookie { flex-direction: row; align-items: center; max-width: 620px; }
-  .cookie .row { flex-shrink: 0; }
+  .cookie { flex-direction: row; align-items: center; justify-content: flex-start; gap: 22px; right: auto; max-width: min(880px, calc(100% - 40px)); padding: 16px 24px; }
+  .cookie p { flex: 0 1 auto; margin: 0; }
+  .cookie .row { flex-shrink: 0; flex-wrap: nowrap; }
 }
 @media (min-width: 960px) {
   .nav-links { display: flex; }
@@ -677,9 +683,13 @@ html { scroll-behavior: smooth; }
   .marquee { padding: 18px 0; }
   .bigmark { padding-top: 6px; }
   .stats { gap: 14px; }
+  /* botões grandes: reduzir pra caber em 1 linha no mobile (sem quebrar) */
+  .btn-lg { padding: 15px 22px; font-size: .95rem; }
 }
 @media (max-width: 480px) {
   .section { padding: 40px 0; }
+  .cta-band { padding: 34px 18px; }
+  .btn-lg { padding: 13px 16px; font-size: .84rem; }
 }
 
 /* ===== Carrossel de logos de clientes ===== */
