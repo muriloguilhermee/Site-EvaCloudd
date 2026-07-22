@@ -202,7 +202,7 @@ h1, h2, h3, h4 { line-height: 1.15; font-weight: 800; letter-spacing: -.02em; }
 .mobile-menu.show a:nth-child(3){ transition-delay:.22s } .mobile-menu.show a:nth-child(4){ transition-delay:.28s }
 .mobile-menu.show a:nth-child(5){ transition-delay:.34s } .mobile-menu.show a:nth-child(6){ transition-delay:.40s }
 .mobile-menu a:hover { color: var(--accent-400); background: none; }
-.mobile-menu .btn { margin-top: 26px; font-size: 1.02rem; align-self: flex-start; }
+.mobile-menu .btn { margin-top: 30px; font-size: 1.05rem; align-self: flex-start; padding: 15px 30px; border-radius: 999px; line-height: 1; }
 .mobile-menu a.btn-primary, .mobile-menu a.btn-wa { color: #fff; }
 .mobile-menu a.btn-primary:hover, .mobile-menu a.btn-wa:hover { color: #fff; background: var(--grad); }
 .mobile-menu a.btn-wa:hover { background: var(--wa-dark); }
@@ -545,9 +545,9 @@ h1, h2, h3, h4 { line-height: 1.15; font-weight: 800; letter-spacing: -.02em; }
     radial-gradient(45% 40% at 3% 12%, rgba(34,195,240,.10), transparent 60%);
 }
 /* tipografia maior e mais dramática */
-.hero h1 { font-size: clamp(2.6rem, 7vw, 5rem); letter-spacing: -.03em; line-height: 1.03; }
+.hero h1 { font-size: clamp(2.3rem, 4.6vw, 3.5rem); letter-spacing: -.03em; line-height: 1.07; }
 .section-title { font-size: clamp(2rem, 5.2vw, 3.7rem); letter-spacing: -.03em; }
-.page-hero h1 { font-size: clamp(2.4rem, 6.5vw, 4.4rem); letter-spacing: -.03em; line-height: 1.05; }
+.page-hero h1 { font-size: clamp(2.1rem, 4.2vw, 3.2rem); letter-spacing: -.03em; line-height: 1.08; }
 .hero p.lead { font-size: 1.22rem; }
 
 /* nav em vidro escuro */
