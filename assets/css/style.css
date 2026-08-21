@@ -670,6 +670,8 @@ html { scroll-behavior: smooth; }
    ========================================================= */
 @media (max-width: 720px) {
   .section { padding: 46px 0; }
+  /* foto do banner Sobre: 10% mais baixa só no mobile */
+  .page-hero.hero-split.hero-up .feat-img { transform: scaleY(0.9); transform-origin: center; }
   .hero-cine { min-height: auto; }
   .page-hero, .page-hero.hero-split { min-height: auto; padding: 88px 0 44px; }
   .page-hero .scrolldown { display: none; }
