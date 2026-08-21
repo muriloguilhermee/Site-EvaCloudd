@@ -156,6 +156,7 @@ h1, h2, h3, h4 { line-height: 1.15; font-weight: 800; letter-spacing: -.02em; }
 .page-hero.hero-split .container { display: grid; gap: 32px; grid-template-columns: 1fr; align-items: center; }
 .page-hero.hero-split .feat-img { max-height: 72vh; margin-inline: auto; }
 .page-hero.hero-split.hero-up .container { transform: translateY(-5vh); }
+.page-hero.hero-split.hero-up .feat-img { transform: scaleY(1.08); transform-origin: center; }
 .page-hero.hero-split .feat-img.feat-85 { max-height: 61vh; width: 104%; }
 .page-hero.hero-split .hero-cta { justify-content: flex-start; }
 .page-hero.hero-split .breadcrumb { text-align: left; }
@@ -752,3 +753,15 @@ html { scroll-behavior: smooth; }
   .logo-item img { max-width: 148px; max-height: 76px; }
   .logos-track { gap: 12px; animation-duration: 46s; }
 }
+
+/* ===== Bloco fundador / trajetória (Sobre) ===== */
+.founder-img {
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  display: block;
+}
+.founder-text p { color: var(--text-soft); margin-top: 15px; line-height: 1.75; }
+.founder-text p:first-child { margin-top: 20px; font-weight: 600; color: var(--text); font-size: 1.05rem; }
+.founder-text strong { color: var(--text); }
