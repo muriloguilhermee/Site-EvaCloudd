@@ -8,7 +8,9 @@
 
   /* ---- Configuração central (EDITE AQUI) ---- */
   const CONFIG = {
-    whatsapp: "551637064700",           // número do WhatsApp (formato internacional, sem +). TROQUE pelo celular/WhatsApp real!
+    // Link RASTREÁVEL do WhatsApp (número fixo). Todos os botões e o formulário usam este link.
+    whatsappLink: "https://analytics.evacloudd.com/r/ef7qfvt",
+    whatsapp: "551637064700",           // fallback: número direto (só usado se whatsappLink ficar vazio)
     defaultMsg: "Olá! Vim pelo site da EvaCloudd e quero saber mais sobre as soluções.",
 
     // ---- Rastreamento (cole seus IDs; deixe vazio para desativar) ----
@@ -71,8 +73,11 @@
     } catch (e) { /* silencioso */ }
   };
 
-  /* ---- Link de WhatsApp padrão ---- */
+  /* ---- Link de WhatsApp padrão ----
+     Usa o link rastreável (número fixo). O texto pré-preenchido é ignorado,
+     pois o redirecionamento de rastreamento leva direto ao número. */
   function waLink(msg) {
+    if (CONFIG.whatsappLink) return CONFIG.whatsappLink;
     return "https://wa.me/" + CONFIG.whatsapp + "?text=" + encodeURIComponent(msg || CONFIG.defaultMsg);
   }
   // Preenche todos os [data-wa] com o link e dispara tracking ao clicar
