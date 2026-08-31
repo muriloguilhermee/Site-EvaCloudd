@@ -293,4 +293,15 @@
   } else {
     document.querySelectorAll(".reveal-img").forEach(function (el) { el.classList.add("in"); });
   }
+
+  /* ---- Rede de segurança: nunca deixar mídia presa invisível ----
+     Se o IntersectionObserver não disparar (bug do Safari/iOS, aba em 2º plano,
+     falha do JS de scroll), garantimos a exibição depois do load. */
+  function revealAllFallback() {
+    document.querySelectorAll(".reveal-img:not(.in), .reveal:not(.in)").forEach(function (el) {
+      el.classList.add("in");
+    });
+  }
+  window.addEventListener("load", function () { setTimeout(revealAllFallback, 1400); });
+  setTimeout(revealAllFallback, 4000);
 })();

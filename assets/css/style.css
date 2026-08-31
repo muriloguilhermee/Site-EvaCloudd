@@ -633,13 +633,16 @@ html { scroll-behavior: smooth; }
 @keyframes scrolldash { 0%{transform:scaleY(0);transform-origin:top} 45%{transform:scaleY(1);transform-origin:top} 55%{transform:scaleY(1);transform-origin:bottom} 100%{transform:scaleY(0);transform-origin:bottom} }
 
 /* revelação em "wipe" para imagens/mídia */
-.reveal-img { clip-path: inset(0 0 100% 0); opacity: .15; transition: clip-path 1.05s var(--ease), opacity .9s var(--ease); }
-.reveal-img.in { clip-path: inset(0 0 0 0); opacity: 1; }
+/* revelação simples (opacidade + leve deslocamento) — sem clip-path,
+   que quebrava a exibição no Chromium (Chrome/Edge/Android) quando combinado
+   com will-change/transform (parallax) + filter: drop-shadow */
+.reveal-img { opacity: 0; transform: translateY(22px) scale(.99); transition: opacity .8s var(--ease), transform .9s var(--ease); }
+.reveal-img.in { opacity: 1; transform: none; }
 
 /* upgrade da revelação padrão: leve escala + blur saindo */
 .reveal { opacity: 0; transform: translateY(28px); transition: opacity .7s var(--ease), transform .8s var(--ease); }
 .reveal.in { opacity: 1; transform: none; }
-.reveal, .reveal-img, [data-parallax], .hero-img { will-change: transform; }
+.reveal, [data-parallax], .hero-img { will-change: transform; }
 .reveal.in { opacity: 1; transform: none; filter: none; }
 
 /* seção-declaração que "gruda" (pin) enquanto rola */
