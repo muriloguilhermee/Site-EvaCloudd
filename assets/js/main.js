@@ -74,11 +74,13 @@
   };
 
   /* ---- Link de WhatsApp padrão ----
-     Usa o link rastreável (número fixo). O texto pré-preenchido é ignorado,
-     pois o redirecionamento de rastreamento leva direto ao número. */
+     Usa o link rastreável (número fixo). O redirecionador aceita ?texto= e
+     repassa a mensagem ao WhatsApp, então o texto pré-preenchido é mantido.
+     No wa.me (fallback) o parâmetro correto é ?text= (inglês). */
   function waLink(msg) {
-    if (CONFIG.whatsappLink) return CONFIG.whatsappLink;
-    return "https://wa.me/" + CONFIG.whatsapp + "?text=" + encodeURIComponent(msg || CONFIG.defaultMsg);
+    var texto = encodeURIComponent(msg || CONFIG.defaultMsg);
+    if (CONFIG.whatsappLink) return CONFIG.whatsappLink + "?texto=" + texto;
+    return "https://wa.me/" + CONFIG.whatsapp + "?text=" + texto;
   }
   // Preenche todos os [data-wa] com o link e dispara tracking ao clicar
   document.querySelectorAll("[data-wa]").forEach(function (el) {
@@ -203,7 +205,7 @@
       }
 
       // abre WhatsApp e vai para a página de obrigado (rastreio de conversão)
-      var wa = waLink(texto);
+      var wa = waLink(texto) + (tel ? "&telefone=" + encodeURIComponent(tel) : "");
       var thanks = form.getAttribute("data-thanks");
       window.open(wa, "_blank", "noopener");
       if (thanks) window.location.href = thanks;
