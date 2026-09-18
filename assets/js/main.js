@@ -15,7 +15,7 @@
 
     // ---- Rastreamento (cole seus IDs; deixe vazio para desativar) ----
     gtmId: "",           // ex.: "GTM-XXXXXXX"
-    metaPixelId: "",     // ex.: "123456789012345"
+    metaPixelId: "1097759599611282",
     googleAdsId: "",     // ex.: "AW-1234567890"  (tag base do Google Ads)
     adsConversion: "",   // ex.: "AW-1234567890/AbC-D_efG"  (rótulo de conversão de lead)
 
