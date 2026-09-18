@@ -59,19 +59,49 @@
 
   /* ---- Helper de tracking (Google Ads / Meta Pixel / GTM) ---- */
   // Dispara eventos de conversão de forma segura, mesmo sem os scripts carregados.
-  window.trackLead = function (label, extra) {
+  // "userData" (opcional) leva telefone/e-mail/nome para o servidor (Conversions API),
+  // que faz o hash antes de enviar ao Meta — nunca vai em claro pela rede.
+  window.trackLead = function (label, extra, userData) {
     try {
+      var eventId = "ev_" + Date.now() + "_" + Math.random().toString(36).slice(2);
       // GTM / GA4
       window.dataLayer = window.dataLayer || [];
       window.dataLayer.push(Object.assign({ event: "generate_lead", lead_source: label || "site" }, extra || {}));
-      // Meta Pixel
-      if (typeof window.fbq === "function") window.fbq("track", "Lead", { content_name: label });
+      // Meta Pixel (navegador) — eventID igual ao do servidor, para o Meta deduplicar
+      if (typeof window.fbq === "function") window.fbq("track", "Lead", { content_name: label }, { eventID: eventId });
+      // Meta Conversions API (servidor) — cobre quem bloqueia o pixel do navegador
+      sendServerEvent("Lead", eventId, Object.assign({ content_name: label }, extra || {}), userData);
       // Google Ads (defina window.GADS_CONVERSION = 'AW-XXXX/YYYY' para ativar)
       if (typeof window.gtag === "function" && window.GADS_CONVERSION) {
         window.gtag("event", "conversion", { send_to: window.GADS_CONVERSION });
       }
     } catch (e) { /* silencioso */ }
   };
+
+  function getCookie(name) {
+    var m = document.cookie.match("(^|;)\\s*" + name + "\\s*=\\s*([^;]+)");
+    return m ? decodeURIComponent(m.pop()) : "";
+  }
+
+  function sendServerEvent(eventName, eventId, customData, userData) {
+    if (!CONFIG.metaPixelId) return; // sem pixel configurado, não envia
+    try {
+      fetch("/api/meta-capi.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          event_name: eventName,
+          event_id: eventId,
+          event_source_url: location.href,
+          fbp: getCookie("_fbp"),
+          fbc: getCookie("_fbc"),
+          user_data: userData || {},
+          custom_data: customData || {},
+        }),
+        keepalive: true,
+      }).catch(function () {});
+    } catch (e) { /* silencioso */ }
+  }
 
   /* ---- Link de WhatsApp padrão ----
      Usa o link rastreável (número fixo). O redirecionador aceita ?texto= e
@@ -191,7 +221,7 @@
       if (tel) texto += "\nMeu telefone: " + tel;
       if (msg) texto += "\nMensagem: " + msg;
 
-      window.trackLead(form.getAttribute("data-lead-form") || "form", { segmento: seg });
+      window.trackLead(form.getAttribute("data-lead-form") || "form", { segmento: seg }, { phone: tel, first_name: nome });
 
       // backup do lead: envia para o endpoint (Formspree/próprio), se configurado — não bloqueia o fluxo
       if (CONFIG.leadEndpoint) {

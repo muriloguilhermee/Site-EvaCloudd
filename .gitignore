@@ -5,3 +5,6 @@ EvaCloudd-Arquivos-Privados/
 node_modules/
 *.log
 .claude
+
+# Token da Conversions API (Meta) — só existe no servidor, nunca no Git
+api/config.php
