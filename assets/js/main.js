@@ -266,6 +266,39 @@
   /* ---- Ano no footer ---- */
   document.querySelectorAll("[data-year]").forEach(function (el) { el.textContent = new Date().getFullYear(); });
 
+  /* ---- Webchat (ClouddChat): empurra o botão para cima do WhatsApp ----
+     O widget vive num Shadow DOM aberto (CSS do site não entra nele por design),
+     então a única forma de reposicionar é injetar um <style> dentro do próprio
+     shadowRoot assim que ele aparecer no body. */
+  function reposicionaWebchat(host) {
+    if (!host.shadowRoot) return;
+    var estilo = document.createElement("style");
+    estilo.textContent =
+      ".lanc{bottom:92px !important}" +
+      ".teaser{bottom:162px !important}" +
+      ".painel{bottom:162px !important}";
+    host.shadowRoot.appendChild(estilo);
+  }
+  var webchatHost = document.querySelector("[data-atendo-widget]");
+  if (webchatHost) {
+    reposicionaWebchat(webchatHost);
+  } else {
+    var webchatObs = new MutationObserver(function (mutations) {
+      for (var i = 0; i < mutations.length; i++) {
+        var added = mutations[i].addedNodes;
+        for (var j = 0; j < added.length; j++) {
+          var node = added[j];
+          if (node.nodeType === 1 && node.hasAttribute && node.hasAttribute("data-atendo-widget")) {
+            reposicionaWebchat(node);
+            webchatObs.disconnect();
+            return;
+          }
+        }
+      }
+    });
+    webchatObs.observe(document.body, { childList: true });
+  }
+
 })();
 
 /* ===== Efeitos cinematográficos (cursor, nav auto-hide, parallax, wipe) ===== */
