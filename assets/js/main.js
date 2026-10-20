@@ -9,7 +9,7 @@
   /* ---- Configuração central (EDITE AQUI) ---- */
   const CONFIG = {
     // Link RASTREÁVEL do WhatsApp (número fixo). Todos os botões e o formulário usam este link.
-    whatsappLink: "https://analytics.evacloudd.com/r/ef7qfvt",
+    whatsappLink: "https://app.clouddchat.com/api/v1/public/r/by3fp8y",
     whatsapp: "551637064700",           // fallback: número direto (só usado se whatsappLink ficar vazio)
     defaultMsg: "Olá! Vim pelo site da EvaCloudd e quero saber mais sobre as soluções.",
 
